@@ -1,13 +1,13 @@
 package org.eternity.domainmodel.movie.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.eternity.domainmodel.generic.Money;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -19,6 +19,9 @@ public class Movie {
     private Integer runningTime;
     private Money fee;
 
+    @OneToMany(mappedBy = "movie")
+    private Set<Screening> screenings = new HashSet<>();
+
     public Movie(String title, Integer runningTime, Money fee) {
         this.title = title;
         this.runningTime = runningTime;
@@ -27,5 +30,13 @@ public class Movie {
 
     public Money getFee() {
         return fee;
+    }
+
+    public void addScreening(Screening screening) {
+        this.screenings.add(screening);
+    }
+
+    public void removeScreening(Screening screening) {
+        this.screenings.remove(screening);
     }
 }
