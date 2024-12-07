@@ -18,7 +18,7 @@ public class Screening {
     private int sequence;
     private LocalDateTime screeningTime;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name= "MOVIE_IE")
     private Movie movie;
 
